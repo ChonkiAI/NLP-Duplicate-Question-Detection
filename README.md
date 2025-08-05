@@ -4,7 +4,7 @@ This project uses Natural Language Processing (NLP) and Machine Learning to dete
 
 ## Table of Contents
 - [Project Workflow](#project-workflow)
-- [Dataset](#dataset)
+- [Dataset and Pre-trained Models](#dataset-and-pre-trained-models)
 - [Technologies Used](#technologies-used)
 - [Setup and Installation](#setup-and-installation)
 - [How to Run](#how-to-run)
@@ -14,27 +14,22 @@ This project uses Natural Language Processing (NLP) and Machine Learning to dete
 ## Project Workflow
 The project follows a standard machine learning pipeline:
 1.  **Data Loading**: The `train.csv` from the Quora Question Pairs dataset is loaded.
-2.  **Text Preprocessing**: A comprehensive cleaning process is applied to the questions, which includes:
-    - Lowercasing text
-    - Removing HTML tags and URLs
-    - Replacing special characters and currency symbols
-    - Expanding contractions (e.g., "don't" to "do not")
-    - Removing punctuation and stopwords
-    - Lemmatization to reduce words to their root form.
-3.  **Feature Engineering**: To help the model understand the nuances between questions, the following features were engineered:
-    - **Basic Features**: Length of questions, word count.
-    - **Word-Share Features**: Number of common words, total words, and the ratio of common words.
-    - **Token-Based Features**: Ratios of common non-stopwords, stopwords, and all tokens.
-    - **Fuzzy Features**: FuzzyWuzzy ratios (`fuzz_ratio`, `fuzz_partial_ratio`, etc.) to measure string similarity.
-4.  **Vectorization**: The cleaned text data was converted into numerical vectors using `CountVectorizer`.
-5.  **Model Training**: A `RandomForestClassifier` was trained on the combination of engineered features and vectorized text data.
-6.  **Model Evaluation**: The model's performance was evaluated using Accuracy, a Confusion Matrix, and a Classification Report (Precision, Recall, F1-Score).
-7.  **Model Saving**: The trained `RandomForestClassifier` and `CountVectorizer` were saved as `.pkl` files for future use.
+2.  **Text Preprocessing**: A comprehensive cleaning process is applied to the questions, which includes lowercasing, removing HTML/URLs, expanding contractions, removing punctuation/stopwords, and lemmatization.
+3.  **Feature Engineering**: A rich set of features were engineered, including basic text stats, word-share ratios, token-based features, and FuzzyWuzzy string similarity scores.
+4.  **Vectorization**: The cleaned text was converted into numerical vectors using `CountVectorizer`.
+5.  **Model Training**: A `RandomForestClassifier` was trained on the combination of engineered features and vectorized text.
+6.  **Model Evaluation**: The model's performance was evaluated using Accuracy, a Confusion Matrix, and a Classification Report.
+7.  **Model Saving**: The trained `RandomForestClassifier` and `CountVectorizer` were saved as `.pkl` files.
 
-## Dataset
-The dataset used is the **Quora Question Pairs** dataset, which can be found on Kaggle. It contains pairs of questions and a label indicating if they are duplicates.
+## Dataset and Pre-trained Models
+Due to GitHub's file size limitations, the dataset and the final trained models are hosted on Google Drive.
 
-- `train.csv`: The dataset used for training and evaluation.
+* **[Download the required files from Google Drive](https://drive.google.com/drive/folders/1W5wwyEipz7DmF5qSpH1ec8BUNs1IRjJK?usp=sharing)**
+
+The link contains:
+-   `train.csv`: The dataset used for training and evaluation.
+-   `model_final.pkl`: The trained `RandomForestClassifier`.
+-   `cv_final.pkl`: The fitted `CountVectorizer`.
 
 ## Technologies Used
 - **Programming Language**: Python 3
@@ -55,19 +50,23 @@ To run this project locally, follow these steps:
     cd NLP-Duplicate-Question-Detection
     ```
 
-2.  **Create and activate a virtual environment (recommended):**
+2.  **Download the data and models:**
+    - Visit the **[Google Drive Folder](https://drive.google.com/drive/folders/1W5wwyEipz7DmF5qSpH1ec8BUNs1IRjJK?usp=sharing)**.
+    - Download the `data` and `saved_models` folders.
+    - Place both folders in the root directory of this project.
+
+3.  **Create and activate a virtual environment (recommended):**
     ```bash
     python -m venv venv
     source venv/bin/activate  # On Windows, use `venv\Scripts\activate`
     ```
 
-3.  **Install the required dependencies:**
+4.  **Install the required dependencies:**
     ```bash
     pip install -r requirements.txt
     ```
 
-4.  **Download necessary NLTK and spaCy data:**
-    Run the following commands in your terminal:
+5.  **Download necessary NLTK and spaCy data:**
     ```bash
     python -m spacy download en_core_web_sm
     ```
